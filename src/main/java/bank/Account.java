@@ -1,17 +1,19 @@
 package bank;
 
-public class Account {
- private int id;
- private String type;
- private Double balance;
+import javax.lang.model.util.ElementScanner14;
 
+import bank.exceptions.AmountException;
+
+public class Account {
+  private int id;
+  private String type;
+  private Double balance;
 
   public Account(int id, String type, Double balance) {
     setId(id);
     setType(type);
     setBalance(balance);
   }
-
 
   public int getId() {
     return this.id;
@@ -37,11 +39,28 @@ public class Account {
     this.balance = balance;
   }
 
-
-  public void deposit(Double ammount) {
+  public void deposit(Double amount) throws AmountException{
+  if(amount < 1){
+throw new AmountException("The minumum deposit amount is 1.00");
+  }else{
+    
+  }
+  double newBalance = balance + amount;
+  setBalance(newBalance);
+  DataSource.updateAccountBalance(id, newBalance);
   }
 
-
-  public void withdrawl(Double ammount) {
+  public void withdrawl(Double amount) throws AmountException {
+    if (amount < 5) {
+      throw new AmountException("The minumum withdrawl amount is 5.00");
+    } else {
+      if (amount - balance >= 0){
+        double newBalance = balance - amount;
+      setBalance(newBalance);
+      } else{
+      //  System.out.println("You do not have enough funds to withdraw this amount please try again");
+      }
+      
+    }
   }
 }

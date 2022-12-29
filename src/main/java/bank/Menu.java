@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import javax.security.auth.login.LoginException;
 
+import bank.exceptions.AmountException;
+
 public class Menu {
   private Scanner scanner;
 
@@ -48,27 +50,37 @@ public class Menu {
       System.out.println("===================================================");
 
       selection = scanner.nextInt();
-      Double ammount = (double) 0;
-      
+      Double amount = (double) 0;
+
       switch (selection) {
         case 1:
           System.out.println("How much would you like to deposit: ");
-          ammount = scanner.nextDouble();
-          account.deposit(ammount);
+          amount = scanner.nextDouble();
+          try {
+            account.deposit(amount);
+          } catch (AmountException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Please try again ");
+          }
           break;
         case 2:
           System.out.println("How much would you like to Withdrawl: ");
-          ammount = scanner.nextDouble();
-          account.withdrawl(ammount);
+          amount = scanner.nextDouble();
+          try {
+            account.withdrawl(amount);
+          } catch (AmountException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Please try again ");
+          }
           break;
         case 3:
           System.out.println("Current Balance: " + account.getBalance());
           break;
         case 4:
-        Authenticator.logout(customer);   
-        System.out.println("Thanks for banking with Globe Bank International!! ");
+          Authenticator.logout(customer);
+          System.out.println("Thanks for banking with Globe Bank International!! ");
           break;
-          default:
+        default:
           System.out.println("Invalid option. Please try again!");
           break;
       }

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DataSource {
+
   public static Connection connect() {
     String db_file = "jdbc:sqlite:resources/bank.db";
     Connection connection = null;
@@ -18,6 +19,7 @@ public class DataSource {
     }
     return connection;
   }
+
 
   public static Customer getCustomer(String username) {
     String sql = "select * from customers where username = ?";
@@ -42,6 +44,7 @@ public class DataSource {
     return customer;
   }
 
+
   public static Account getAccount(int accountId) {
     String sql = "select * from accounts where id = ?";
     Account account = null;
@@ -63,6 +66,21 @@ public class DataSource {
     return account;
   }
 
+
+
+  public static void updateAccountBalance(int account_id, double balance){
+    String sql = "Update accounts set balance = ? where id = ? ";
+    try(
+      Connection connection = connect();
+      PreparedStatement statement = connection.prepareStatement(sql);
+    ){
+      statement.setDouble(1, balance);
+      statement.setInt(2, account_id);
+    statement.executeUpdate();
+    }catch(SQLException e){ 
+      e.printStackTrace();
+    }
+  }
 
   public static void main(String[] args) {
     Customer customer = getCustomer("twest8o@friendfeed.com");
