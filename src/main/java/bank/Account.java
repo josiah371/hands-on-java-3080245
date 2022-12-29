@@ -51,14 +51,16 @@ throw new AmountException("The minumum deposit amount is 1.00");
   }
 
   public void withdrawl(Double amount) throws AmountException {
-    if (amount < 5) {
-      throw new AmountException("The minumum withdrawl amount is 5.00");
+    if (amount < 0) {
+      throw new AmountException("The minumum withdrawl amount must be greater than 0.");
     } else {
-      if (amount - balance >= 0){
-        double newBalance = balance - amount;
-      setBalance(newBalance);
+      if (amount > getBalance()){
+        throw new AmountException("You do not have sufficient funds for this withdrawl");
+       
       } else{
-      //  System.out.println("You do not have enough funds to withdraw this amount please try again");
+        double newBalance = balance - amount;
+        setBalance(newBalance);
+        DataSource.updateAccountBalance(id, newBalance);
       }
       
     }

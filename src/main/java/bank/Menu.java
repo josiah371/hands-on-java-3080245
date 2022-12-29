@@ -70,7 +70,7 @@ public class Menu {
             account.withdrawl(amount);
           } catch (AmountException e) {
             System.out.println(e.getMessage());
-            System.out.println("Please try again ");
+            System.out.println("Please try again. ");
           }
           break;
         case 3:
