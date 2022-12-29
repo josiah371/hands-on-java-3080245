@@ -3,10 +3,10 @@ package bank;
 public class Account {
  private int id;
  private String type;
- private String balance;
+ private Double balance;
 
 
-  public Account(int id, String type, String balance) {
+  public Account(int id, String type, Double balance) {
     setId(id);
     setType(type);
     setBalance(balance);
@@ -29,11 +29,11 @@ public class Account {
     this.type = type;
   }
 
-  public String getBalance() {
+  public Double getBalance() {
     return this.balance;
   }
 
-  public void setBalance(String balance) {
+  public void setBalance(Double balance) {
     this.balance = balance;
   }
 }
